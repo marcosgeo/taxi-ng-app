@@ -1,0 +1,14 @@
+services:
+
+  redis:
+    image: redislabs/redismod
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: postgres
