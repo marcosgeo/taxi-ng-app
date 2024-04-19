@@ -4,6 +4,8 @@ services:
     image: redislabs/redismod
     ports:
       - "6379:6379"
+    networks:
+      - taxinet
 
   postgres:
     image: postgres
@@ -11,4 +13,18 @@ services:
       - "5432:5432"
     shm_size: 128mb
     environment:
+      POSTGRES_DB: taxi
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - taxi_db:/var/lib/postgresql/data
+      - "./server/db:/docker-entrypoint-init.d"
+    networks:
+      - taxinet
+
+volumes:
+  taxi_db:
+
+networks:
+  taxinet:
+     driver: bridge
