@@ -1,0 +1,30 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python Debugger: Django",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/server/manage.py",
+      "args": ["runserver"],
+      "django": true,
+      "justMyCode": true
+    },
+    {
+      "name": "trips: test_user_can_sign_up",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/server/manage.py",
+      "args": [
+        "test",
+        "trips.tests.test_http.AuthenticationTest.test_user_can_sign_up",
+        "-v",
+        "0"
+      ],
+      "django": true
+    }
+  ]
+}
