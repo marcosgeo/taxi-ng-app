@@ -25,6 +25,19 @@
         "0"
       ],
       "django": true
+    },
+    {
+      "name": "trips: test_user_can_list_trips",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/server/manage.py",
+      "args": [
+        "test",
+        "trips.tests.test_http.HttpTripTest.test_user_can_list_trips",
+        "-v",
+        "0"
+      ],
+      "django": true
     }
   ]
 }
