@@ -88,7 +88,7 @@
               "node_modules/bootswatch/dist/lumen/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": ["node_modules/bootstrap/dist/js/boostrap.min.js"]
+            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.min.js"]
           }
         }
       }
