@@ -1,7 +1,7 @@
 services:
-
   redis:
     image: redislabs/redismod
+    container_name: taxi-redis
     ports:
       - "6379:6379"
     networks:
@@ -9,6 +9,7 @@ services:
 
   postgres:
     image: postgres
+    container_name: taxi-database
     ports:
       - "5432:5432"
     shm_size: 128mb
@@ -22,9 +23,28 @@ services:
     networks:
       - taxinet
 
+  taxi-server:
+    build:
+      context: ./server
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: taxi-server
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - REDIS_URL=redis://taxi-redis:6379/0
+      - PGDATABASE=taxi
+      - PGUSER=postgres
+      - PGPASSWORD=postgres
+      - PGHOST=taxi-database
+    ports:
+      - "8001:8000"
+    networks:
+      - taxinet
+
 volumes:
   taxi_db:
 
 networks:
   taxinet:
-     driver: bridge
+    driver: bridge
