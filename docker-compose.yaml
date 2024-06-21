@@ -1,5 +1,5 @@
 services:
-  redis:
+  taxi-redis:
     image: redislabs/redismod
     container_name: taxi-redis
     ports:
@@ -7,7 +7,7 @@ services:
     networks:
       - taxinet
 
-  postgres:
+  taxi-postgres:
     image: postgres
     container_name: taxi-database
     ports:
@@ -26,11 +26,15 @@ services:
   taxi-server:
     build:
       context: ./server
-    command: python manage.py runserver 0.0.0.0:8000
+    command: daphne --bind 0.0.0.0 --port 8000 taxi.asgi:application
     container_name: taxi-server
     depends_on:
-      - postgres
-      - redis
+      - taxi-postgres
+      - taxi-redis
+    volumes:
+      - ./server:/usr/src/app
+      - media:/usr/src/app/media
+      - static:/usr/src/app/static
     environment:
       - REDIS_URL=redis://taxi-redis:6379/0
       - PGDATABASE=taxi
@@ -42,8 +46,42 @@ services:
     networks:
       - taxinet
 
+  taxi-client:
+    build:
+      context: ./client
+    command: ng serve --host 0.0.0.0
+    container_name: taxi-client
+    depends_on:
+      - taxi-server
+    volumes:
+      - ./client:/usr/src/app
+    environment:
+      - CHROME_BIN=/usr/bin/chromium
+    ports:
+      - "4201:4200"
+    networks:
+      - taxinet
+
+  nginx:
+    build:
+      context: ./nginx
+    container_name: taxi-nginx
+    depends_on:
+      - taxi-server
+      - taxi-client
+    ports:
+      - "8080:80"
+    restart: always
+    volumes:
+      - media:/usr/src/app/media
+      - static:/usr/src/app/static
+    networks:
+      - taxinet
+
 volumes:
   taxi_db:
+  media:
+  static:
 
 networks:
   taxinet:
