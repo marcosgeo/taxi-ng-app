@@ -56,7 +56,7 @@ fdescribe('Authentication using a service', () => {
         expect(user).toBe(userData);
       });
 
-    const request = httpMock.expectOne('/api/sign-up');
+    const request = httpMock.expectOne('/api/sign-up/');
     request.flush(userData);
   });
 

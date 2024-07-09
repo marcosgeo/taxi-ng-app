@@ -32,7 +32,7 @@ export class AuthService {
     group: string,
     photo: any
   ): Observable<User> {
-    const url = '/api/sign-up';
+    const url = '/api/sign-up/';
     const formData = new FormData();
     formData.append('username', username);
     formData.append('first_name', firstName);
