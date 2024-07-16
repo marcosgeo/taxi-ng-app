@@ -7,7 +7,7 @@ import {
 import { AuthService, User, Token } from './auth.service';
 import { createFakeToken, createFakeUser } from '../testing/factories';
 
-fdescribe('AuthService create', () => {
+describe('AuthService create', () => {
   let authService: AuthService;
 
   beforeEach(() => {
@@ -24,7 +24,7 @@ fdescribe('AuthService create', () => {
   });
 });
 
-fdescribe('Authentication using a service', () => {
+describe('Authentication using a service', () => {
   let authService: AuthService;
   let httpMock: HttpTestingController;
 
