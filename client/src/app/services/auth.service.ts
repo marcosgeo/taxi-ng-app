@@ -59,6 +59,14 @@ export class AuthService {
     );
   }
 
+  static isRider(): boolean {
+    const user = this.getUser();
+    if (user) {
+      return user.group === 'rider';
+    }
+    return false;
+  }
+
   /**
    * There is no logout endpoint in the API, so we just remove the token from local storage.
    */

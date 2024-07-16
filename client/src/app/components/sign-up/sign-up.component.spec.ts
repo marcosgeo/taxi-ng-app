@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { createFakeUser } from 'src/app/testing/factories';
 import { SignUpComponent } from './sign-up.component';
 
-fdescribe('SignUpComponent', () => {
+describe('SignUpComponent', () => {
   let component: SignUpComponent;
   let fixture: ComponentFixture<SignUpComponent>;
   let router: Router;
