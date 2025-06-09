@@ -253,11 +253,11 @@ class TestWebSocket:
         trip: Trip = await create_trip(rider=rider)
         trip_id = f'{trip.id}'
 
-        # Listen for messages as rider
+        # Publishes a trip on channel
         channel_layer = get_channel_layer()
         await channel_layer.group_add(group=trip_id, channel='test_channel')
 
-        # Update trip
+        # Create a drive to pick up the trip and update it
         driver, access = await create_user(
             'test.driver@example.com', 'pAsswOrd', 'driver'
         )
