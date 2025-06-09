@@ -1,5 +1,8 @@
 # IDE
 .idea
+client-old
+media
+client/node_modules
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

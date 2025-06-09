@@ -1,3 +1,12 @@
+volumes:
+  taxi_db:
+  media:
+  static:
+
+networks:
+  taxinet:
+    driver: bridge
+
 services:
   taxi-redis:
     image: redislabs/redismod
@@ -35,12 +44,8 @@ services:
       - ./server:/usr/src/app
       - media:/usr/src/app/media
       - static:/usr/src/app/static
-    environment:
-      - REDIS_URL=redis://taxi-redis:6379/0
-      - PGDATABASE=taxi
-      - PGUSER=postgres
-      - PGPASSWORD=postgres
-      - PGHOST=taxi-database
+    env_file:
+      - ./server/.env
     ports:
       - "8001:8000"
     networks:
@@ -79,11 +84,4 @@ services:
     networks:
       - taxinet
 
-volumes:
-  taxi_db:
-  media:
-  static:
 
-networks:
-  taxinet:
-    driver: bridge

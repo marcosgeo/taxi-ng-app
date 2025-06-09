@@ -4,6 +4,7 @@ import { AuthService, User } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-landing',
+  standalone: false,
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.css'],
 })
