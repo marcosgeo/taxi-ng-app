@@ -40,7 +40,7 @@ describe('LogInComponent', () => {
     const token = createFakeToken();
     component.user = { username: user.username, password: 'pAsswOd!' };
     component.onSubmit();
-    const request = httpMock.expectOne('/api/log-in/');
+    const request = httpMock.expectOne('http://localhost:8080/api/log-in/');
     request.flush(token);
     expect(localStorage.getItem('taxi.auth')).toEqual(JSON.stringify(token));
     expect(spy).toHaveBeenCalledWith('');

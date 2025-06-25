@@ -1,8 +1,6 @@
+import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 import { AuthService, User, Token } from './auth.service';
 import { createFakeToken, createFakeUser } from '../testing/factories';
@@ -12,9 +10,7 @@ describe('AuthService create', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [],
-      providers: [AuthService],
+      providers: [AuthService, provideHttpClient(), provideHttpClientTesting()],
     });
     authService = TestBed.inject(AuthService);
   });
@@ -30,8 +26,8 @@ describe('Authentication using a service', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [AuthService],
+      imports: [],
+      providers: [AuthService, provideHttpClient(), provideHttpClientTesting()],
     });
     authService = TestBed.inject(AuthService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -53,11 +49,15 @@ describe('Authentication using a service', () => {
         photo
       )
       .subscribe((user: User) => {
-        expect(user).toBe(userData);
+        expect(user).toEqual(userData);
       });
 
-    const request = httpMock.expectOne('/api/sign-up/');
-    request.flush(userData);
+    const request = httpMock.expectOne(
+      {method: 'POST', url: 'http://localhost:8080/api/sign-up/'},
+      'POST request to sign up a new user'
+    );
+    request.flush(userData);  // simulate a successful response and close the request
+    httpMock.verify(); // verify that no other requests are outstanding
   });
 
   it('Should allow a user to log in to an existing account', () => {
@@ -74,7 +74,7 @@ describe('Authentication using a service', () => {
       .subscribe((user: Token) => {
         expect(user).toBe(tokenData);
       });
-    const request = httpMock.expectOne('/api/log-in/');
+    const request = httpMock.expectOne('http://localhost:8080/api/log-in/');
     request.flush(tokenData);
 
     // Confirm that the expected data was written to local storage.
@@ -111,6 +111,7 @@ describe('Authentication using a service', () => {
   });
 
   afterEach(() => {
+    // after each test, we verify that there are no outstanding requests.
     httpMock.verify();
   });
 });

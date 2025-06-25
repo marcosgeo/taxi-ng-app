@@ -1,11 +1,12 @@
+import { provideHttpClient } from '@angular/common/http';
 import {
-  HttpClientTestingModule,
+  provideHttpClientTesting,
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule } from '@angular/forms';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { createFakeUser } from 'src/app/testing/factories';
@@ -21,11 +22,10 @@ describe('SignUpComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        HttpClientTestingModule,
         RouterTestingModule.withRoutes([]),
       ],
       declarations: [SignUpComponent],
-      providers: [AuthService],
+      providers: [AuthService, provideHttpClient(), provideHttpClientTesting()],
     });
     fixture = TestBed.createComponent(SignUpComponent);
     component = fixture.componentInstance;
@@ -46,7 +46,7 @@ describe('SignUpComponent', () => {
       photo,
     };
     component.onSubmit();
-    const request = httpMock.expectOne('/api/sign-up/');
+    const request = httpMock.expectOne('http://localhost:8080/api/sign-up/');
     request.flush(user);
     expect(spy).toHaveBeenCalledWith('/log-in');
   });
