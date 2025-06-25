@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,14 +17,14 @@ import { RiderDashboardComponent } from './components/rider-dashboard/rider-dash
 @NgModule({
   declarations: [
     AppComponent,
-    SignUpComponent,
-    LogInComponent,
     LandingComponent,
+    LogInComponent,
     RiderComponent,
     RiderDashboardComponent,
+    SignUpComponent,
   ],
-  imports: [HttpClientModule, BrowserModule, FormsModule, AppRoutingModule],
-  providers: [AuthService],
+  imports: [BrowserModule, FormsModule, AppRoutingModule],
+  providers: [AuthService, IsRiderService, provideHttpClient()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

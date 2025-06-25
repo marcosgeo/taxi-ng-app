@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -22,6 +22,9 @@ export interface Token {
   providedIn: 'root',
 })
 export class AuthService {
+  serverUrl = 'http://localhost:8080';
+  baseHeaders = new HttpHeaders().set('Access-Control-Allow-Origin', 'http://localhost:8080');
+
   constructor(private http: HttpClient) {}
 
   signUp(
@@ -32,7 +35,7 @@ export class AuthService {
     group: string,
     photo: any
   ): Observable<User> {
-    const url = '/api/sign-up/';
+    const url = `${this.serverUrl}/api/sign-up/`;
     const formData = new FormData();
     formData.append('username', username);
     formData.append('first_name', firstName);
@@ -41,7 +44,7 @@ export class AuthService {
     formData.append('password2', password);
     formData.append('group', group);
     formData.append('photo', photo);
-    return this.http.request<User>('POST', url, { body: formData });
+    return this.http.request<User>('POST', url, { body: formData, headers: this.baseHeaders});
   }
 
   private static parseUserFromAccessToken(accessToken: string): User {
@@ -51,7 +54,7 @@ export class AuthService {
   }
 
   logIn(username: string, password: string): Observable<Token> {
-    const url = '/api/log-in/';
+    const url = `${this.serverUrl}/api/log-in/`;
     return this.http.post<Token>(url, { username, password }).pipe(
       tap((token: Token) => {
         localStorage.setItem('taxi.auth', JSON.stringify(token));

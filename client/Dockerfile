@@ -6,6 +6,7 @@ RUN echo @edge http://nl.alpinelinux.org/alpine/latest-stable/community >> /etc/
     && echo @edge http://nl.alpinelinux.org/alpine/latest-stable/main >> /etc/apk/repositories \
     && apk add --no-cache \
     chromium \
+    curl \
     harfbuzz \
     "freetype>2.8" \
     ttf-freefont \
