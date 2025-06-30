@@ -1,6 +1,7 @@
 import * as faker from 'faker';
 
 import { Token, User } from '../services/auth.service';
+import { Trip } from '../services/trip.service';
 
 export const createFakeUser = (data?: Partial<User>): User => {
   return Object.assign(
@@ -24,4 +25,20 @@ export const createFakeToken = (data?: Object): Token => {
     access: `${header}.${payload}.${signature}`,
     refresh: faker.random.alphaNumeric(100),
   };
+};
+
+export const createFakeTrip = (data?: Partial<Trip>): Trip => {
+  return Object.assign(
+    {
+      id: faker.datatype.uuid(),
+      created: faker.date.past().toISOString(),
+      updated: faker.date.past().toISOString(),
+      pick_up_address: faker.address.streetAddress(),
+      drop_off_address: faker.address.streetAddress(),
+      status: 'REQUESTED',
+      driver: createFakeUser({ group: 'driver' }),
+      rider: createFakeUser(),
+    },
+    data
+  );
 };

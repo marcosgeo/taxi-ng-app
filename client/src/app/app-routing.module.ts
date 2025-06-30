@@ -8,6 +8,7 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { RiderComponent } from './components/rider/rider.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { RiderDashboardComponent } from './components/rider-dashboard/rider-dashboard.component';
+import { TripListResolver } from './services/trip-list.resolver';
 
 const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
@@ -15,10 +16,18 @@ const routes: Routes = [
   {
     path: 'rider',
     component: RiderComponent,
-    canActivate: [IsRiderService],
-    children: [{ path: '', component: RiderDashboardComponent }],
+    canActivate: [
+      IsRiderService
+    ],
+    children: [
+      {
+        path: '',
+        component: RiderDashboardComponent,
+        resolve: { trips: TripListResolver }
+      }
+    ]
   },
-  { path: '', component: LandingComponent },
+  { path: '', component: LandingComponent }
 ];
 
 @NgModule({
