@@ -1,13 +1,13 @@
+import { provideHttpClient } from '@angular/common/http';
 import {
-  HttpClientTestingModule,
+  provideHttpClientTesting,
   HttpTestingController,
   TestRequest,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { TripService } from './trip.service';
+import { Trip, TripService } from './trip.service';
 import { createFakeTrip } from '../testing/factories';
-import { Trip } from './trip.service';
 
 describe('TripService', () => {
   let tripService: TripService;
@@ -15,7 +15,7 @@ describe('TripService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      providers: [TripService, provideHttpClient(), provideHttpClientTesting()]
     });
     tripService = TestBed.inject(TripService);
     httpMock = TestBed.inject(HttpTestingController);

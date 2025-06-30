@@ -23,11 +23,11 @@ const routes: Routes = [
       {
         path: '',
         component: RiderDashboardComponent,
-        resolve: { trips: TripListResolver },
-      },
-    ],
+        resolve: { trips: TripListResolver }
+      }
+    ]
   },
-  { path: '', component: LandingComponent },
+  { path: '', component: LandingComponent }
 ];
 
 @NgModule({

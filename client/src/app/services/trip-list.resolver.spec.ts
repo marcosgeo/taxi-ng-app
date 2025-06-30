@@ -16,7 +16,7 @@ describe('TripListResolver', () => {
     const tripServiceMock: any = {
       getTrips: (): Observable<ReadonlyArray<Trip>> => {
         return of(tripsMock);
-      },
+      }
     };
     const tripListResolver: TripListResolver = new TripListResolver(
       tripServiceMock

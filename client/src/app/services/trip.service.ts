@@ -24,7 +24,8 @@ export class TripService {
 
   getTrips(): Observable<ReadonlyArray<Trip>> {
     const accessToken = AuthService.getAccessToken();
-    const headers = new HttpHeaders({ Authorization: `Beares ${accessToken}` });
+    const headers = new HttpHeaders({ Authorization: `Bearer ${accessToken}` });
     return this.http.get<ReadonlyArray<Trip>>('/api/trip/', { headers });
   }
+
 }

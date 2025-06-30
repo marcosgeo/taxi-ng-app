@@ -26,7 +26,7 @@ import { TripService } from './services/trip.service';
     SignUpComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
-  providers: [AuthService, IsRiderService, provideHttpClient()],
+  providers: [AuthService, IsRiderService, TripListResolver, TripService, provideHttpClient()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

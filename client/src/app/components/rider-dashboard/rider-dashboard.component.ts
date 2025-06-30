@@ -26,6 +26,6 @@ export class RiderDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.data.subscribe((data) => this.trips == data['trips']);
+    this.route.data.subscribe((data) => this.trips = data['trips']);
   }
 }
