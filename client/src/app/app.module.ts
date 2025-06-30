@@ -13,6 +13,8 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { RiderComponent } from './components/rider/rider.component';
 import { RiderDashboardComponent } from './components/rider-dashboard/rider-dashboard.component';
+import { TripListResolver } from './services/trip-list.resolver';
+import { TripService } from './services/trip.service';
 
 @NgModule({
   declarations: [
