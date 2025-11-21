@@ -53,7 +53,7 @@ describe('Authentication using a service', () => {
       });
 
     const request = httpMock.expectOne(
-      {method: 'POST', url: 'http://localhost:8080/api/sign-up/'},
+      {method: 'POST', url: 'http://localhost/api/sign-up/'},
       'POST request to sign up a new user'
     );
     request.flush(userData);  // simulate a successful response and close the request
@@ -74,7 +74,7 @@ describe('Authentication using a service', () => {
       .subscribe((user: Token) => {
         expect(user).toBe(tokenData);
       });
-    const request = httpMock.expectOne('http://localhost:8080/api/log-in/');
+    const request = httpMock.expectOne('http://localhost/api/log-in/');
     request.flush(tokenData);
 
     // Confirm that the expected data was written to local storage.
@@ -91,7 +91,7 @@ describe('Authentication using a service', () => {
     // Execute the function under test.
     authService.logOut();
 
-    // Confirm htat the local storage data was deleted.
+    // Confirm that the local storage data was deleted.
     expect(localStorage.getItem('taxi.auth')).toBeNull();
   });
 

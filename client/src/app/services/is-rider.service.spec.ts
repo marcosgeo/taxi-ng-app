@@ -18,7 +18,7 @@ describe('IsRiderService', () => {
     expect(service.canActivate()).toBeTruthy();
   });
 
-  it('shoud not allow a non-rider to access a route', () => {
+  it('should not allow a non-rider to access a route', () => {
     localStorage.setItem(
       'taxi.auth',
       JSON.stringify(createFakeToken(createFakeUser({ group: 'driver' })))

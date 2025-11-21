@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",
-    "http://localhost/#",
     "http://localhost:4200",
     "http://localhost:4201",
     "http://localhost:8000",
@@ -94,9 +93,9 @@ ASGI_APPLICATION = 'taxi.asgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('PGDATABASE'),
-        'USER': os.getenv('PGUSER'),
-        'PASSWORD': os.getenv('PGPASSWORD'),
+        'NAME': os.getenv('PGDATABASE', 'taxi'),
+        'USER': os.getenv('PGUSER', 'postgres'),
+        'PASSWORD': os.getenv('PGPASSWORD', 'postgres'),
         'HOST': os.getenv('PGHOST', 'localhost'),
         'PORT': os.getenv('PGPORT', '5432'),
     }
