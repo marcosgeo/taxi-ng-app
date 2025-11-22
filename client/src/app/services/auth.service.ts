@@ -22,8 +22,8 @@ export interface Token {
   providedIn: 'root',
 })
 export class AuthService {
-  serverUrl = 'http://localhost:8080';
-  baseHeaders = new HttpHeaders().set('Access-Control-Allow-Origin', 'http://localhost:8080');
+  serverUrl = 'http://localhost';
+  //baseHeaders = new HttpHeaders().set('Access-Control-Allow-Origin', 'http://localhost:8080');
 
   constructor(private http: HttpClient) {}
 
@@ -44,7 +44,7 @@ export class AuthService {
     formData.append('password2', password);
     formData.append('group', group);
     formData.append('photo', photo);
-    return this.http.request<User>('POST', url, { body: formData, headers: this.baseHeaders});
+    return this.http.request<User>('POST', url, { body: formData});
   }
 
   private static parseUserFromAccessToken(accessToken: string): User {

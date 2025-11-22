@@ -48,6 +48,7 @@ services:
       - ./server/.env
     ports:
       - "8001:8000"
+      - "8080:8000"
     networks:
       - taxinet
 
@@ -75,7 +76,6 @@ services:
       - taxi-server
       - taxi-client
     ports:
-      - "8080:80"
       - "80:80"
     restart: always
     volumes:

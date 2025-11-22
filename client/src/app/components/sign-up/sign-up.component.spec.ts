@@ -46,7 +46,7 @@ describe('SignUpComponent', () => {
       photo,
     };
     component.onSubmit();
-    const request = httpMock.expectOne('http://localhost:8080/api/sign-up/');
+    const request = httpMock.expectOne('http://localhost/api/sign-up/');
     request.flush(user);
     expect(spy).toHaveBeenCalledWith('/log-in');
   });
