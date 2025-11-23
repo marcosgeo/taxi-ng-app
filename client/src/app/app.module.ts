@@ -15,6 +15,8 @@ import { RiderComponent } from './components/rider/rider.component';
 import { RiderDashboardComponent } from './components/rider-dashboard/rider-dashboard.component';
 import { TripListResolver } from './services/trip-list.resolver';
 import { TripService } from './services/trip.service';
+import { TripDetailResolver } from './services/trip-detail.resolver';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -25,8 +27,8 @@ import { TripService } from './services/trip.service';
     RiderDashboardComponent,
     SignUpComponent,
   ],
-  imports: [BrowserModule, FormsModule, AppRoutingModule],
-  providers: [AuthService, IsRiderService, TripListResolver, TripService, provideHttpClient()],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, RouterModule],
+  providers: [AuthService, IsRiderService, TripDetailResolver, TripListResolver, TripService, provideHttpClient()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

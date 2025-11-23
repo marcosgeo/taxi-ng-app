@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute, Data } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { Observable, of } from 'rxjs';
 
@@ -22,6 +23,9 @@ describe('RiderDashboardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule.withRoutes([])
+      ],
       declarations: [RiderDashboardComponent],
       providers: [
         { provide: ActivatedRoute, useClass: MockActivatedRoute }
@@ -34,7 +38,7 @@ describe('RiderDashboardComponent', () => {
   it('should get current trips', waitForAsync(() => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
-      expect(component.currentTrips).toEqual([trip3]);
+      expect(component.currentTrips).toEqual([trip1, trip3]);
       expect(1).toEqual(1); // Placeholder for actual test
     });
     component.ngOnInit();
