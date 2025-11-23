@@ -38,7 +38,7 @@ export class TripService {
   connect(): void {
     if (!this.webSocket || this.webSocket.closed) {
       const accessToken = AuthService.getAccessToken();
-      this.webSocket = webSocket(`ws://localhost:8080/taxi?token=${accessToken}`);
+      this.webSocket = webSocket(`ws://localhost:8080/taxi/?token=${accessToken}`);
       this.messages = this.webSocket.pipe(share());
       this.messages.subscribe(message => console.log(message));
     }
@@ -51,6 +51,7 @@ export class TripService {
   }
 
   createTrip(trip: WritableTripData): void {
+    console.log("createTrip called with: ", trip);
     this.connect();
     const message: any = {
       type: 'create.trip',
@@ -59,5 +60,6 @@ export class TripService {
       }
     };
     this.webSocket.next(message);
+    console.log("createTrip finished with message: ", message);
   }
 }

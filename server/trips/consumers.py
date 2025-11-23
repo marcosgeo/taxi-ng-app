@@ -1,11 +1,16 @@
+import logging
+
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 from trips.models import Trip
 from trips.serializers import NestedTripSerializer, TripSerializer
 
+logger = logging.getLogger("django")
+
 
 class TaxiConsumer(AsyncJsonWebsocketConsumer):
+    logger.info("TaxiConsumer started")
     groups = ['test']
 
     @database_sync_to_async
@@ -43,24 +48,29 @@ class TaxiConsumer(AsyncJsonWebsocketConsumer):
         return map(str, trip_ids)
 
     async def connect(self):
-        user = self.scope['user']
-        if user.is_anonymous:
-            await self.close()
-        else:
-            user_group = await self._get_user_group(user)
-            if user_group == 'driver':
-                await self.channel_layer.group_add(
-                    group='drivers', channel=self.channel_name
-                )
-            for trip_id in await self._get_trip_ids(user):
-                await self.channel_layer.group_add(
-                    group=trip_id,
-                    channel=self.channel_name
-                )
+        logger.debug("A connect attempt was made.\n%s", self)
+        try:
+            user = self.scope['user']
+            if user.is_anonymous:
+                await self.close()
+            else:
+                user_group = await self._get_user_group(user)
+                if user_group == 'driver':
+                    await self.channel_layer.group_add(
+                        group='drivers', channel=self.channel_name
+                    )
+                for trip_id in await self._get_trip_ids(user):
+                    await self.channel_layer.group_add(
+                        group=trip_id,
+                        channel=self.channel_name
+                    )
 
-            await self.accept()
+                await self.accept()
+        except Exception as err:
+            logger.error("Failed to connect.\n%s", err)
 
     async def create_trip(self, message):
+        logger.debug("create trip was called with: %s", message)
         data = message.get('data')
         trip = await self._create_trip(data)
         trip_data = await self._get_trip_data(trip)

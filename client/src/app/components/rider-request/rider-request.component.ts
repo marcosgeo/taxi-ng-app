@@ -27,6 +27,7 @@ export class RiderRequestComponent {
   ){}
 
   onSubmit(): void {
+    console.log("requesting a trip");
     this.trip.rider = AuthService.getUser()!;
     this.tripService.createTrip(this.trip);
     this.router.navigateByUrl('/rider');
