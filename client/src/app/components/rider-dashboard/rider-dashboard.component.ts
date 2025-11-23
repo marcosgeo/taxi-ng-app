@@ -14,9 +14,12 @@ export class RiderDashboardComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   get currentTrips(): ReadonlyArray<Trip> {
-    return this.trips.filter((trip) => {
-      return trip.driver !== null && trip.status !== 'COMPLETED';
+    //console.log("currentTrips called. trips: ", this.trips);
+    let filtered_trips = this.trips.filter((trip) => {
+      return trip.status !== 'COMPLETED';
     });
+    //console.log("filtered trips: ", filtered_trips);
+    return filtered_trips;
   }
 
   get completedTrips(): ReadonlyArray<Trip> {

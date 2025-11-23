@@ -6,15 +6,23 @@
       </ol>
     </nav>
     <div class="card mb-3">
-      <h4 class="card-header">Current Trip</h4>
+      <h4 class="card-header">Current Trips</h4>
       <div *ngIf="currentTrips.length > 0; then thenBlock; else elseBlock"></div>
       <ng-template #thenBlock>
         <div class="card-body">
           <ul class="list-unstyled">
-            <li class="media mb-3" *ngFor="let trip of currentTrips">
-              <img class="mr-3 rounded-circle" [src]="trip.driver!.photo" width="80" height="80" />
+            <li 
+              class="media mb-3" 
+              *ngFor="let trip of currentTrips"
+              [routerLink]="['.', trip.id]"  
+            >
+              <img 
+                class="mr-3 rounded-circle" 
+                [src]="trip.driver! ? trip.driver.photo: ''" 
+                width="40" height="40" 
+              />
               <div class="media-body">
-                <h5 class="mt-0 mb-1">{{ trip.driver!.username }}</h5>
+                <h5 class="mt-0 mb-1" *ngIf="trip.driver">{{ trip.driver!.username }}</h5>
                 {{ trip.pick_up_address }} to {{ trip.drop_off_address }}<br />
                 {{ trip.status }}
               </div>
@@ -32,7 +40,11 @@
       <ng-template #thenBlock>
         <div class="card-body">
           <ul class="list-unstyled">
-            <li class="media mb-3" *ngFor="let trip of completedTrips">
+            <li 
+              class="media mb-3" 
+              *ngFor="let trip of completedTrips"
+              [routerLink]="['.', trip.id]"  
+            >
               <img class="mr-3 rounded-circle" [src]="trip.driver!.photo" width="80" height="80" />
               <div class="media-body">
                 <h5 class="mt-0 mb-1">{{ trip.driver!.username }}</h5>
