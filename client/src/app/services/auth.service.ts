@@ -70,6 +70,14 @@ export class AuthService {
     return false;
   }
 
+  static isDriver(): boolean {
+    const user = this.getUser();
+    if (user) {
+      return user.group === 'driver';
+    }
+    return false;
+  }
+
   /**
    * There is no logout endpoint in the API, so we just remove the token from local storage.
    */

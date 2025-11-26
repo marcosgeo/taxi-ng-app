@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './services/auth.service';
+import { IsDriverService } from './services/is-driver.service';
 import { IsRiderService } from './services/is-rider.service';
 
 import { AppComponent } from './app.component';
@@ -18,10 +19,12 @@ import { TripService } from './services/trip.service';
 import { TripDetailResolver } from './services/trip-detail.resolver';
 import { RouterModule } from '@angular/router';
 import { TripCardComponent } from "./components/trip-card/trip-card.component";
+import { DriverComponent } from './components/driver/driver.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    DriverComponent,
     LandingComponent,
     LogInComponent,
     RiderComponent,
@@ -29,7 +32,7 @@ import { TripCardComponent } from "./components/trip-card/trip-card.component";
     SignUpComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule, RouterModule, TripCardComponent],
-  providers: [AuthService, IsRiderService, TripDetailResolver, TripListResolver, TripService, provideHttpClient()],
+  providers: [AuthService, IsDriverService, IsRiderService, TripDetailResolver, TripListResolver, TripService, provideHttpClient()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
