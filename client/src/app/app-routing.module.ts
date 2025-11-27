@@ -14,6 +14,7 @@ import { RiderRequestComponent } from './components/rider-request/rider-request.
 import { RiderDetailComponent } from './components/rider-detail/rider-detail.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { TripDetailResolver } from './services/trip-detail.resolver';
+import { DriverDashboardComponent } from './components/driver-dashboard/driver-dashboard.component';
 
 const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
@@ -46,6 +47,13 @@ const routes: Routes = [
     component: DriverComponent,
     canActivate: [
       IsDriverService
+    ],
+    children: [
+      {
+        path: '',
+        component: DriverDashboardComponent,
+        resolve: { trips: TripListResolver }
+      }
     ]
   },
   { path: '', component: LandingComponent }
